@@ -1,38 +1,63 @@
+/* App.css */
 .App {
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+/* BotCard.css */
+.bot-card {
+  border: 1px solid #ccc;
+  padding: 20px;
+  margin: 10px;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.bot-card h3 {
+  margin: 0;
+  color: #333;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.bot-card p {
+  margin: 5px 0;
+  color: #666;
+}
+
+.bot-card button {
+  margin-top: 10px;
+  padding: 10px 20px;
+  border: none;
+  background-color: #007bff;
+  color: rgb(255, 255, 255);
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+}
+
+.bot-card button:hover {
+  background-color: #0056b3;
+}
+
+.bot-card .discharge-btn {
+  background-color: red;
+  margin-left: 10px;
+}
+
+.bot-card .discharge-btn:hover {
+  background-color: darkred;
+}
+
+/* BotCollection.css */
+.bot-collection {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-wrap: wrap;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+/* YourBotArmy.css */
+.your-bot-army {
+  margin-top: 20px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.your-bot-army p {
+  color: #666;
 }

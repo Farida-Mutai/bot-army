@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import BotCollection from './BotCollection';
 import YourBotArmy from './YourBotArmy';
-import './App.css'; // Import CSS for overall styling
-
+import './App.css';
 function App() {
   const [army, setArmy] = useState([]);
 
@@ -18,7 +17,7 @@ function App() {
     setArmy(army.filter(bot => bot.id !== botId));
 
     // Delete bot from db.json (backend)
-    fetch(`http://localhost:3000/bots/${botId}`, {
+    fetch(`http://localhost:3001/bots`, {
       method: 'DELETE'
     });
   };

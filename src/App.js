@@ -1,12 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import BotCollection from './BotCollection';
 import YourBotArmy from './YourBotArmy';
-import './App.css';
+import './index.css'; // Import your updated CSS
+
 function App() {
+  const [bots, setBots] = useState([]);
   const [army, setArmy] = useState([]);
 
-  const handleEnlist = (bot) => {
-    setArmy([...army, bot]);
+  useEffect(() => {
+    fetch('http://localhost:3001/bots')
+      .then(response => response.json())
+      .then(data => setBots(data));
+  }, []);
+
+  const handleEnlist = (botId) => {
+    fetch(`http://localhost:3001/bots/${botId}`)
+      .then(response => response.json())
+      .then(botToAdd => {
+        if (!army.find(bot => bot.id === botId)) {
+          setArmy([...army, botToAdd]);
+        }
+      });
   };
 
   const handleRelease = (botId) => {
@@ -14,28 +28,20 @@ function App() {
   };
 
   const handleDischarge = (botId) => {
-    setArmy(army.filter(bot => bot.id !== botId));
-
-    // Delete bot from db.json (backend)
-    fetch(`http://localhost:3001/bots`, {
-      method: 'DELETE'
-    });
+    fetch(`http://localhost:3001/bots/${botId}`, { method: 'DELETE' })
+      .then(response => {
+        if (response.ok) {
+          setArmy(army.filter(bot => bot.id !== botId));
+          setBots(bots.filter(bot => bot.id !== botId));
+        }
+      });
   };
 
   return (
-    <div className="App">
+    <div className="app">
       <h1>Bot Battlr</h1>
-      <BotCollection 
-        onEnlist={handleEnlist} 
-        army={army} 
-        onRelease={handleRelease} 
-        onDischarge={handleDischarge} 
-      />
-      <YourBotArmy 
-        army={army} 
-        onRelease={handleRelease} 
-        onDischarge={handleDischarge} 
-      />
+      <YourBotArmy army={army} onRelease={handleRelease} onDischarge={handleDischarge} />
+      <BotCollection onEnlist={handleEnlist} />
     </div>
   );
 }

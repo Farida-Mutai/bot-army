@@ -1,24 +1,18 @@
 import React from 'react';
-import BotCard from './BotCard'; // Correct path
-import './YourBotArmy.css';
-
+import BotCard from './BotCard';
 
 function YourBotArmy({ army, onRelease, onDischarge }) {
   return (
     <div className="your-bot-army">
-      {army.length === 0 ? (
-        <p>No bots in your army</p>
-      ) : (
-        army.map(bot => (
-          <BotCard 
-            key={bot.id} 
-            bot={bot} 
-            onRelease={onRelease} 
-            onDischarge={onDischarge} 
-            inArmy={true} 
-          />
-        ))
-      )}
+      {army.map(bot => (
+        <BotCard
+          key={bot.id}
+          bot={bot}
+          isInArmy={true}
+          onRelease={onRelease}
+          onDischarge={onDischarge}
+        />
+      ))}
     </div>
   );
 }

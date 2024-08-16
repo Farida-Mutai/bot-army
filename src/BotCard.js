@@ -1,16 +1,23 @@
 import React from 'react';
-import './BotCard.css'; // Import CSS for styling
 
-function BotCard({ bot, onEnlist, onRelease, onDischarge, inArmy }) {
+function BotCard({ bot, onEnlist, isInArmy, onRelease, onDischarge }) {
   return (
     <div className="bot-card">
       <h3>{bot.name}</h3>
-      <p>Type: {bot.type}</p>
-      <p>Health: {bot.health}</p>
-      <button onClick={() => inArmy ? onRelease(bot.id) : onEnlist(bot)} disabled={inArmy}>
-        {inArmy ? 'Release' : 'Enlist'}
-      </button>
-      {inArmy && <button className="discharge-btn" onClick={() => onDischarge(bot.id)}>x</button>}
+      <p>{bot.model}</p>
+      {isInArmy ? (
+        <>
+          <button onClick={() => onRelease(bot.id)}>Release</button>
+          <button
+            className="discharge-button"
+            onClick={() => onDischarge(bot.id)}
+          >
+            Discharge (x)
+          </button>
+        </>
+      ) : (
+        <button onClick={() => onEnlist(bot.id)}>Enlist</button>
+      )}
     </div>
   );
 }

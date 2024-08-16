@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import BotCard from './BotCard'; // Correct path
-import './BotCollection.css';
+import BotCard from './BotCard';
 
-
-function BotCollection({ onEnlist, army, onRelease, onDischarge }) {
+function BotCollection({ onEnlist }) {
   const [bots, setBots] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:3001/bots') // Fetch bots data from db.json
+    fetch('http://localhost:3001/bots')
       .then(response => response.json())
       .then(data => setBots(data));
   }, []);
@@ -15,14 +13,7 @@ function BotCollection({ onEnlist, army, onRelease, onDischarge }) {
   return (
     <div className="bot-collection">
       {bots.map(bot => (
-        <BotCard 
-          key={bot.id} 
-          bot={bot} 
-          onEnlist={onEnlist} 
-          onRelease={onRelease} 
-          onDischarge={onDischarge} 
-          inArmy={army.some(armyBot => armyBot.id === bot.id)}
-        />
+        <BotCard key={bot.id} bot={bot} onEnlist={onEnlist} />
       ))}
     </div>
   );
